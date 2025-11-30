@@ -50,7 +50,7 @@
 
 
 
-
+setTimeout(()=>{if(window.innerWidth<=768&&'ontouchstart'in window){let h=document.createElement('div');h.innerHTML='← Scroll →';h.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:white;padding:10px 20px;border-radius:20px;font-family:Arial,sans-serif;font-size:14px;z-index:9999;opacity:1;transition:opacity 0.5s ease 2.5s';document.body.appendChild(h);setTimeout(()=>h.style.opacity=0,2500);setTimeout(()=>h.remove(),3000);}},500);
 
 
 
@@ -477,8 +477,6 @@ document.addEventListener('touchstart', e=>e.target.closest('.gallery-item')&&(e
 
 
 
-
-setTimeout(()=>{if(window.innerWidth<=768&&'ontouchstart'in window){let h=document.createElement('div');h.innerHTML='← Scroll →';h.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:white;padding:10px 20px;border-radius:20px;font-family:Arial,sans-serif;font-size:14px;z-index:9999;animation:fadeOut 3s forwards';document.body.appendChild(h);}},500);
 
 
 
@@ -1318,6 +1316,7 @@ setTimeout(()=>{if(window.innerWidth<=768&&'ontouchstart'in window){let h=docume
     }
 
 });
+
 
 
 
