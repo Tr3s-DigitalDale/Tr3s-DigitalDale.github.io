@@ -2,71 +2,6 @@
  * TR3S VISUALS PORTFOLIO - SCRIPT.JS
  * Handles navigation, galleries, and interactions
  */
-// Image Protection Script
-document.addEventListener('DOMContentLoaded', function() {
-    // Prevent right-click on images
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-            return false;
-        }
-    });
-    
-    // Prevent image dragging
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-            return false;
-        }
-    });
-    
-    // Disable keyboard shortcuts for screenshots
-    document.addEventListener('keydown', function(e) {
-        // Disable Print Screen key
-        if (e.key === 'PrintScreen') {
-            e.preventDefault();
-            return false;
-        }
-        
-        // Disable Alt+Print Screen
-        if (e.altKey && e.key === 'PrintScreen') {
-            e.preventDefault();
-            return false;
-        }
-        
-        // Disable Ctrl+Print Screen (some systems)
-        if (e.ctrlKey && e.key === 'PrintScreen') {
-            e.preventDefault();
-            return false;
-        }
-        
-        // Disable Windows+Print Screen (Windows)
-        if (e.key === 'PrintScreen' && e.getModifierState('Meta')) {
-            e.preventDefault();
-            return false;
-        }
-    });
-    
-    // Apply protections to dynamically added images
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            mutation.addedNodes.forEach(function(node) {
-                if (node.tagName === 'IMG') {
-                    node.addEventListener('contextmenu', function(e) {
-                        e.preventDefault();
-                        return false;
-                    });
-                    node.setAttribute('draggable', 'false');
-                }
-            });
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-});
 
 
 
@@ -342,4 +277,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     
+
 });
