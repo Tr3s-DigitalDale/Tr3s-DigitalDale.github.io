@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tr3s DigitalDale |</title>
+    <title>Tr3s DigitalDale | Visual Portfolio</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300;400;500;700&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -12,6 +12,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay">
+        <nav class="mobile-navigation">
+            <div class="mobile-header">
+                <img src="images/logo.png" alt="Tr3s DigitalDale Logo" class="mobile-logo">
+                <h2 class="mobile-site-title">Tr<span>3</span>s <span>D</span>igital <span>D</span>ale</h2>
+                <button class="mobile-close" id="mobileClose" aria-label="Close menu">×</button>
+            </div>
+            <ul class="mobile-nav-menu">
+                <li class="mobile-nav-item active" data-target="portraits">Portraits</li>
+                <li class="mobile-nav-item" data-target="events">Events</li>
+                <li class="mobile-nav-item" data-target="commissions">Commissions</li>
+                <li class="mobile-nav-item" data-target="product-visuals">Product Visuals</li>
+                <li class="mobile-nav-item" data-target="f2b">Custom Consultations F2B</li>
+                <li class="mobile-nav-item" data-target="about">About</li>
+                <li class="mobile-nav-item" data-target="contact">Contact</li>
+            </ul>
+            <div class="mobile-copyright">
+                &copy; 2025 Tr3s Visuals. All rights reserved.
+            </div>
+        </nav>
+    </div>
+
     <!-- Main Container -->
     <div class="container">
         
@@ -27,13 +50,13 @@
                 <!-- Main Navigation -->
                 <nav class="main-navigation">
                     <ul class="nav-menu">
-                        <li class="active" data-target="portraits">Portraits</li>
-                        <li data-target="events">Events</li>
-                        <li data-target="commissions">Commissions</li>
-                        <li data-target="product-visuals">Product Visuals</li>
-                        <li data-target="f2b">Custom Consultations F2B</li>
-                        <li data-target="about">About</li>
-                        <li data-target="contact">Contact</li>
+                        <li class="nav-item active" data-target="portraits">Portraits</li>
+                        <li class="nav-item" data-target="events">Events</li>
+                        <li class="nav-item" data-target="commissions">Commissions</li>
+                        <li class="nav-item" data-target="product-visuals">Product Visuals</li>
+                        <li class="nav-item" data-target="f2b">Custom Consultations F2B</li>
+                        <li class="nav-item" data-target="about">About</li>
+                        <li class="nav-item" data-target="contact">Contact</li>
                     </ul>
                 </nav>
             </div>
@@ -47,7 +70,11 @@
         </aside>
 
         <!-- Mobile Menu Toggle -->
-        <button class="mobile-toggle" aria-label="Toggle navigation menu">☰</button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
 
         <!-- Main Content Area -->
         <main class="main-content">
@@ -98,7 +125,7 @@
             <section id="events" class="gallery-section">
                 <div class="section-header">
                     <h2 class="section-title">Events</h2>
-                    <p class="section-subtitle">"The photograph’s ‘that-has-been’ is a new form of ontology, a new way of being."</p>
+                    <p class="section-subtitle">"The photograph's 'that-has-been' is a new form of ontology, a new way of being."</p>
                     <p class="section-subsubtitle"><span>R</span>oland Barthes</p>
                 </div>
                 <div class="gallery-container">
@@ -140,7 +167,7 @@
             <section id="commissions" class="gallery-section">
                 <div class="section-header">
                     <h2 class="section-title">Commissioned Work</h2>
-                    <p class="section-subtitle">True tailoring isn’t about altering fabric, it’s about affirming the client's vision</p>
+                    <p class="section-subtitle">True tailoring isn't about altering fabric, it's about affirming the client's vision</p>
                     <p class="section-subsubtitle">Tr<span>3</span>s <span>D</span>igital<span>D</span>ales</p>
                 </div>
                 <div class="gallery-container">
@@ -287,22 +314,18 @@
                             <div class="process-step">
                                 <span class="step-number">1</span>
                                 <h4>Discovery Call</h4>
-                                
                             </div>
                             <div class="process-step">
                                 <span class="step-number">2</span>
                                 <h4>Custom Proposal</h4>
-                                
                             </div>
                             <div class="process-step">
                                 <span class="step-number">3</span>
                                 <h4>Collaborative Execution</h4>
-                                
                             </div>
                             <div class="process-step">
                                 <span class="step-number">4</span>
                                 <h4>Ongoing Support</h4>
-                                
                             </div>
                         </div>
                     </div>
