@@ -54,8 +54,7 @@
  * Mobile-Optimized Version scroll information
  */
 
-setTimeout(()=>{if(window.innerWidth<=768&&'ontouchstart'in window){let h=document.createElement('div');h.innerHTML='← Scroll →';h.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:white;padding:30px 60px;border-radius:60px;font-family:Arial,sans-serif;font-size:14px;z-index:9999;opacity:1;transition:opacity 0.5s ease 2.5s';document.body.appendChild(h);setTimeout(()=>h.style.opacity=0,2500);setTimeout(()=>h.remove(),3000);}},500);
-
+document.addEventListener('click',e=>{if(e.target.tagName==='IMG'&&!e.target.closest('.branded')){let o=document.createElement('div');o.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;transition:opacity 0.3s;cursor:pointer;';let i=document.createElement('img');i.src=e.target.src;i.style.cssText='max-width:90%;max-height:90%;object-fit:contain;position:relative;';let l=document.createElement('img');l.src='images/logo.png';l.style.cssText='position:absolute;bottom:15px;right:15px;width:120px;height:auto;opacity:0.85;pointer-events:none;';o.appendChild(i);o.appendChild(l);document.body.appendChild(o);setTimeout(()=>o.style.opacity=1,10);o.onclick=()=>{o.style.opacity=0;setTimeout(()=>o.remove(),300);};}});
 
 
 
@@ -1353,6 +1352,7 @@ document.addEventListener('touchstart', e=>e.target.closest('.gallery-item')&&(e
     }
 
 });
+
 
 
 
