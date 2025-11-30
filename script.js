@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 })();
-
+document.addEventListener('touchstart', e=>e.target.closest('.gallery-item')&&(e.currentTarget.style.overflowX='hidden'),{passive:true});
 
 
 
@@ -1318,6 +1318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
 
 
 
