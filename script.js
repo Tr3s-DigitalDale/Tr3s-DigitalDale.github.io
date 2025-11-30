@@ -494,6 +494,249 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+    /**
+ * Mobile Gallery Touch Fix
+ * Solves touch conflicts between horizontal scrolling and image clicks
+ * Plug & Play - Just add this script to fix mobile gallery interactions
+ */
+
+(function() {
+    'use strict';
+    
+    // Configuration
+    const config = {
+        swipeThreshold: 30,    // Minimum horizontal movement to count as swipe
+        tapThreshold: 200,     // Maximum time for tap
+        preventClicksDuringScroll: true
+    };
+    
+    // State variables
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+    let isScrolling = false;
+    let scrollTimeout = null;
+    
+    function initializeMobileGalleryFix() {
+        console.log('📱 Mobile Gallery Touch Fix: Active');
+        
+        // Get all gallery scroll containers
+        const galleryScrolls = document.querySelectorAll('.gallery-scroll');
+        
+        galleryScrolls.forEach(gallery => {
+            setupGalleryTouchHandlers(gallery);
+        });
+        
+        // Also handle dynamically added galleries
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        if (node.classList && node.classList.contains('gallery-scroll')) {
+                            setupGalleryTouchHandlers(node);
+                        }
+                        // Check for galleries within added nodes
+                        const galleries = node.querySelectorAll ? node.querySelectorAll('.gallery-scroll') : [];
+                        galleries.forEach(setupGalleryTouchHandlers);
+                    }
+                });
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    function setupGalleryTouchHandlers(gallery) {
+        // Remove any existing listeners to avoid duplicates
+        gallery.removeEventListener('touchstart', handleTouchStart);
+        gallery.removeEventListener('touchmove', handleTouchMove);
+        gallery.removeEventListener('touchend', handleTouchEnd);
+        
+        // Add new listeners
+        gallery.addEventListener('touchstart', handleTouchStart, { passive: true });
+        gallery.addEventListener('touchmove', handleTouchMove, { passive: true });
+        gallery.addEventListener('touchend', handleTouchEnd, { passive: true });
+        
+        // Add CSS for better touch handling
+        gallery.style.touchAction = 'pan-y';
+        gallery.style.webkitOverflowScrolling = 'touch';
+    }
+    
+    function handleTouchStart(e) {
+        if (e.touches.length !== 1) return;
+        
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+        isScrolling = false;
+        
+        // Clear any existing timeout
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = null;
+        }
+    }
+    
+    function handleTouchMove(e) {
+        if (e.touches.length !== 1 || !touchStartX) return;
+        
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        
+        const deltaX = Math.abs(touchX - touchStartX);
+        const deltaY = Math.abs(touchY - touchStartY);
+        
+        // If horizontal movement is significant, it's a scroll
+        if (deltaX > config.swipeThreshold && deltaX > deltaY) {
+            isScrolling = true;
+            
+            if (config.preventClicksDuringScroll) {
+                // Temporarily disable clicks during scroll
+                const gallery = e.currentTarget;
+                gallery.style.pointerEvents = 'none';
+                
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    gallery.style.pointerEvents = 'auto';
+                }, 300);
+            }
+        }
+    }
+    
+    function handleTouchEnd(e) {
+        if (!touchStartX) return;
+        
+        const touchEndTime = Date.now();
+        const touchDuration = touchEndTime - touchStartTime;
+        
+        const touchX = e.changedTouches[0].clientX;
+        const touchY = e.changedTouches[0].clientY;
+        
+        const deltaX = Math.abs(touchX - touchStartX);
+        const deltaY = Math.abs(touchY - touchStartY);
+        
+        // Reset touch start
+        touchStartX = 0;
+        touchStartY = 0;
+        
+        // If it was a scroll, don't trigger click
+        if (isScrolling) {
+            isScrolling = false;
+            return;
+        }
+        
+        // Check if it's a valid tap (short duration, small movement)
+        if (touchDuration < config.tapThreshold && deltaX < config.swipeThreshold && deltaY < config.swipeThreshold) {
+            // Find the tapped image
+            const tappedElement = document.elementFromPoint(touchX, touchY);
+            const imageItem = tappedElement ? tappedElement.closest('.gallery-item') : null;
+            
+            if (imageItem) {
+                // Trigger the image click after a small delay for better UX
+                setTimeout(() => {
+                    imageItem.click();
+                }, 50);
+            }
+        }
+        
+        isScrolling = false;
+    }
+    
+    // Enhanced image click handler for mobile
+    function enhanceImageClicks() {
+        document.addEventListener('click', function(e) {
+            const imageItem = e.target.closest('.gallery-item');
+            if (imageItem && window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const img = imageItem.querySelector('img');
+                if (img) {
+                    // Use existing zoom functionality or create mobile-friendly viewer
+                    if (typeof openZoomView === 'function') {
+                        openZoomView(img.src, img.alt);
+                    } else {
+                        // Fallback: simple image expansion
+                        showMobileImagePreview(img);
+                    }
+                }
+            }
+        }, true);
+    }
+    
+    function showMobileImagePreview(img) {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: none;
+        `;
+        
+        const previewImg = document.createElement('img');
+        previewImg.src = img.src;
+        previewImg.alt = img.alt;
+        previewImg.style.cssText = `
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+        `;
+        
+        overlay.appendChild(previewImg);
+        document.body.appendChild(overlay);
+        
+        // Close on tap
+        overlay.addEventListener('click', function() {
+            document.body.removeChild(overlay);
+        });
+        
+        // Close on escape key
+        const closeHandler = function(e) {
+            if (e.key === 'Escape') {
+                document.body.removeChild(overlay);
+                document.removeEventListener('keydown', closeHandler);
+            }
+        };
+        document.addEventListener('keydown', closeHandler);
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMobileGalleryFix();
+            enhanceImageClicks();
+        });
+    } else {
+        initializeMobileGalleryFix();
+        enhanceImageClicks();
+    }
+    
+    // Re-initialize on resize (for orientation changes)
+    window.addEventListener('resize', function() {
+        setTimeout(initializeMobileGalleryFix, 100);
+    });
+
+})();
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1075,6 +1318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
 
 
 
