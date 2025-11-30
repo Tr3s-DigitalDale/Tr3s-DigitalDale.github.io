@@ -109,72 +109,367 @@ document.addEventListener('DOMContentLoaded', function() {
     let aboutGalleryInterval;
 
     // ===== NAVIGATION FUNCTIONALITY =====
-// Image Protection Script
-document.addEventListener('DOMContentLoaded', function() {
-    // Prevent right-click on images
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
+
+
+
+
+
+
+
+
+
+    /**
+ * Universal Image Protection Script v2.0
+ * Advanced protection against image downloading and right-click actions
+ * Works across all devices and browsers without disrupting user experience
+ * Plug & Play - Just include this script on any webpage
+ */
+
+(function() {
+    'use strict';
+    
+    // Configuration
+    const config = {
+        enableRightClickProtection: true,
+        enableDragProtection: true,
+        enableKeyboardProtection: true,
+        enableTouchProtection: true,
+        enableDynamicContentProtection: true,
+        showWarningMessages: false,
+        warningMessage: 'Image protection is active on this website',
+        protectedImageClasses: ['protected-image', 'no-download'],
+        excludeImageClasses: ['allow-download', 'no-protection']
+    };
+    
+    // State management
+    let isInitialized = false;
+    let longPressTimer = null;
+    let observer = null;
+    
+    // Main initialization function
+    function initializeImageProtection() {
+        if (isInitialized) return;
+        
+        // Apply protections to existing images
+        protectExistingImages();
+        
+        // Set up event listeners
+        setupEventListeners();
+        
+        // Set up dynamic content protection
+        if (config.enableDynamicContentProtection) {
+            setupDynamicProtection();
+        }
+        
+        isInitialized = true;
+        console.log('🛡️ Image Protection: Active');
+    }
+    
+    // Check if element should be protected
+    function shouldProtectElement(element) {
+        if (element.tagName !== 'IMG') return false;
+        
+        // Check if image has excluded class
+        for (const className of config.excludeImageClasses) {
+            if (element.classList.contains(className)) return false;
+        }
+        
+        // Check if image has protected class (if any specified)
+        if (config.protectedImageClasses.length > 0) {
+            for (const className of config.protectedImageClasses) {
+                if (element.classList.contains(className)) return true;
+            }
+        }
+        
+        // Default: protect all images
+        return true;
+    }
+    
+    // Apply protections to existing images
+    function protectExistingImages() {
+        const images = document.getElementsByTagName('img');
+        for (let img of images) {
+            if (shouldProtectElement(img)) {
+                applyImageProtections(img);
+            }
+        }
+    }
+    
+    // Apply all protections to a single image
+    function applyImageProtections(imgElement) {
+        // Prevent dragging
+        if (config.enableDragProtection) {
+            imgElement.setAttribute('draggable', 'false');
+            imgElement.style.userDrag = 'none';
+            imgElement.style.webkitUserDrag = 'none';
+        }
+        
+        // Add protective class for CSS styling
+        imgElement.classList.add('image-protected');
+        
+        // Add touch action styles for mobile
+        if (config.enableTouchProtection) {
+            imgElement.style.touchAction = 'none';
+            imgElement.style.webkitTouchCallout = 'none';
+        }
+    }
+    
+    // Set up all event listeners
+    function setupEventListeners() {
+        // Right-click protection
+        if (config.enableRightClickProtection) {
+            document.addEventListener('contextmenu', handleContextMenu, { passive: false });
+        }
+        
+        // Drag protection
+        if (config.enableDragProtection) {
+            document.addEventListener('dragstart', handleDragStart, { passive: false });
+        }
+        
+        // Keyboard protection (screenshot prevention)
+        if (config.enableKeyboardProtection) {
+            document.addEventListener('keydown', handleKeyDown, { passive: false });
+        }
+        
+        // Touch protection for mobile devices
+        if (config.enableTouchProtection) {
+            document.addEventListener('touchstart', handleTouchStart, { passive: false });
+            document.addEventListener('touchend', handleTouchEnd, { passive: false });
+            document.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        }
+        
+        // Additional mobile protections
+        document.addEventListener('selectstart', handleSelectStart, { passive: false });
+        document.addEventListener('copy', handleCopy, { passive: false });
+    }
+    
+    // Event handlers
+    function handleContextMenu(e) {
+        if (shouldProtectElement(e.target)) {
             e.preventDefault();
+            e.stopPropagation();
+            if (config.showWarningMessages) {
+                showTemporaryMessage(config.warningMessage);
+            }
             return false;
         }
-    });
+    }
     
-    // Prevent image dragging
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
+    function handleDragStart(e) {
+        if (shouldProtectElement(e.target)) {
             e.preventDefault();
+            e.stopPropagation();
             return false;
         }
-    });
+    }
     
-    // Disable keyboard shortcuts for screenshots
-    document.addEventListener('keydown', function(e) {
-        // Disable Print Screen key
-        if (e.key === 'PrintScreen') {
+    function handleKeyDown(e) {
+        // Print Screen key
+        if (e.key === 'PrintScreen' || e.code === 'PrintScreen') {
             e.preventDefault();
+            e.stopPropagation();
             return false;
         }
         
-        // Disable Alt+Print Screen
-        if (e.altKey && e.key === 'PrintScreen') {
+        // Alt + Print Screen
+        if (e.altKey && (e.key === 'PrintScreen' || e.code === 'PrintScreen')) {
             e.preventDefault();
+            e.stopPropagation();
             return false;
         }
         
-        // Disable Ctrl+Print Screen (some systems)
-        if (e.ctrlKey && e.key === 'PrintScreen') {
+        // Ctrl/Cmd + Print Screen
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'PrintScreen' || e.code === 'PrintScreen')) {
             e.preventDefault();
+            e.stopPropagation();
             return false;
         }
         
-        // Disable Windows+Print Screen (Windows)
-        if (e.key === 'PrintScreen' && e.getModifierState('Meta')) {
+        // Windows Key + Print Screen
+        if (e.getModifierState('Meta') && (e.key === 'PrintScreen' || e.code === 'PrintScreen')) {
             e.preventDefault();
+            e.stopPropagation();
             return false;
         }
-    });
+        
+        // F12 (Developer Tools) - Additional protection
+        if (e.key === 'F12') {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // Ctrl+Shift+I (Developer Tools)
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+    }
     
-    // Apply protections to dynamically added images
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            mutation.addedNodes.forEach(function(node) {
-                if (node.tagName === 'IMG') {
-                    node.addEventListener('contextmenu', function(e) {
-                        e.preventDefault();
-                        return false;
-                    });
-                    node.setAttribute('draggable', 'false');
+    function handleTouchStart(e) {
+        if (e.touches.length === 1 && shouldProtectElement(e.target)) {
+            // Start long press detection
+            longPressTimer = setTimeout(() => {
+                if (config.showWarningMessages) {
+                    showTemporaryMessage(config.warningMessage);
                 }
+            }, 800); // 800ms for long press
+        }
+    }
+    
+    function handleTouchEnd(e) {
+        clearLongPressTimer();
+    }
+    
+    function handleTouchMove(e) {
+        // Clear long press timer if user moves finger
+        if (e.touches.length === 1) {
+            clearLongPressTimer();
+        }
+    }
+    
+    function handleSelectStart(e) {
+        if (shouldProtectElement(e.target)) {
+            e.preventDefault();
+            return false;
+        }
+    }
+    
+    function handleCopy(e) {
+        if (shouldProtectElement(document.activeElement)) {
+            e.preventDefault();
+            return false;
+        }
+    }
+    
+    // Utility functions
+    function clearLongPressTimer() {
+        if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+        }
+    }
+    
+    function showTemporaryMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            pointer-events: none;
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            if (document.body.contains(messageDiv)) {
+                document.body.removeChild(messageDiv);
+            }
+        }, 2000);
+    }
+    
+    // Dynamic content protection using MutationObserver
+    function setupDynamicProtection() {
+        observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    // Check if the added node is an image
+                    if (node.nodeType === 1 && node.tagName === 'IMG') {
+                        if (shouldProtectElement(node)) {
+                            applyImageProtections(node);
+                        }
+                    }
+                    
+                    // Check for images within added nodes
+                    if (node.nodeType === 1 && node.querySelectorAll) {
+                        const images = node.querySelectorAll('img');
+                        images.forEach(img => {
+                            if (shouldProtectElement(img)) {
+                                applyImageProtections(img);
+                            }
+                        });
+                    }
+                });
             });
         });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    // Public API for manual control
+    window.ImageProtection = {
+        enable: function() {
+            initializeImageProtection();
+        },
+        
+        disable: function() {
+            if (observer) {
+                observer.disconnect();
+                observer = null;
+            }
+            
+            // Remove event listeners
+            document.removeEventListener('contextmenu', handleContextMenu);
+            document.removeEventListener('dragstart', handleDragStart);
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchend', handleTouchEnd);
+            document.removeEventListener('touchcancel', handleTouchEnd);
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('selectstart', handleSelectStart);
+            document.removeEventListener('copy', handleCopy);
+            
+            isInitialized = false;
+            console.log('🛡️ Image Protection: Disabled');
+        },
+        
+        configure: function(newConfig) {
+            Object.assign(config, newConfig);
+        },
+        
+        protectImage: function(imgElement) {
+            if (imgElement && imgElement.tagName === 'IMG') {
+                applyImageProtections(imgElement);
+            }
+        },
+        
+        unprotectImage: function(imgElement) {
+            if (imgElement && imgElement.tagName === 'IMG') {
+                imgElement.setAttribute('draggable', 'true');
+                imgElement.classList.remove('image-protected');
+            }
+        }
+    };
+    
+    // Auto-initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeImageProtection);
+    } else {
+        initializeImageProtection();
+    }
+    
+    // Re-initialize when page becomes visible again (for SPA navigation)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && !isInitialized) {
+            initializeImageProtection();
+        }
     });
     
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-});
-
+})();
 
 
 
@@ -780,5 +1075,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
 
 
