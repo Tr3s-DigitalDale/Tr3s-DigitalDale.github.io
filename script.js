@@ -87,6 +87,36 @@ setTimeout(()=>{if(window.innerWidth<=768&&'ontouchstart'in window){let h=docume
 
 
 
+document.addEventListener('click',e=>{if(e.target.tagName==='IMG'&&!e.target.closest('.branded')){let o=document.createElement('div');o.innerHTML='<img src="images/logo.png" style="position:absolute;bottom:20px;right:20px;width:80px;height:auto;opacity:0.8;transition:opacity 0.3s;">';o.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;transition:opacity 0.3s;';o.classList.add('branded');let i=document.createElement('img');i.src=e.target.src;i.style.cssText='max-width:90%;max-height:90%;object-fit:contain;';o.appendChild(i);o.querySelector('img[src*="logo.png"]').onload=()=>{o.style.opacity=1;};document.body.appendChild(o);o.onclick=()=>{o.style.opacity=0;setTimeout(()=>o.remove(),300);};}});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1316,6 +1346,7 @@ document.addEventListener('touchstart', e=>e.target.closest('.gallery-item')&&(e
     }
 
 });
+
 
 
 
