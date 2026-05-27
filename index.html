@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300;400;500;700&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
     <!-- Mobile Menu Overlay -->
@@ -21,12 +21,13 @@
                 <button class="mobile-close" id="mobileClose" aria-label="Close menu">×</button>
             </div>
             <ul class="mobile-nav-menu">
-                <li class="mobile-nav-item active" data-target="portraits">Portraits</li>
+                <li class="mobile-nav-item active" data-target="latest-work">Latest Work</li>
+                <li class="mobile-nav-item" data-target="portraits">Portraits</li>
                 <li class="mobile-nav-item" data-target="events">Events</li>
                 <li class="mobile-nav-item" data-target="commissions">Commissions</li>
                 <li class="mobile-nav-item" data-target="product-visuals">Product Visuals</li>
                 <li class="mobile-nav-item" data-target="short-packages">Short Packages</li>
-                <li class="mobile-nav-item" data-target="f2b">Custom Consultations F2B</li>
+                <li class="mobile-nav-item" data-target="f2b">Business Services</li>
                 <li class="mobile-nav-item" data-target="about">About</li>
                 <li class="mobile-nav-item" data-target="contact">Contact</li>
             </ul>
@@ -51,12 +52,13 @@
                 <!-- Main Navigation -->
                 <nav class="main-navigation">
                     <ul class="nav-menu">
-                        <li class="nav-item active" data-target="portraits">Portraits</li>
+                        <li class="nav-item active" data-target="latest-work">Latest Work</li>
+                        <li class="nav-item" data-target="portraits">Portraits</li>
                         <li class="nav-item" data-target="events">Events</li>
                         <li class="nav-item" data-target="commissions">Commissions</li>
                         <li class="nav-item" data-target="product-visuals">Product Visuals</li>
                         <li class="nav-item" data-target="short-packages">Short Packages</li>
-                        <li class="nav-item" data-target="f2b">Custom Consultations F2B</li>
+                        <li class="nav-item" data-target="f2b">Business Services</li>
                         <li class="nav-item" data-target="about">About</li>
                         <li class="nav-item" data-target="contact">Contact</li>
                     </ul>
@@ -80,9 +82,130 @@
 
         <!-- Main Content Area -->
         <main class="main-content">
+
+            <!-- Latest Work Section -->
+            <section id="latest-work" class="content-section active">
+                <div class="section-header">
+                    <h2 class="section-title">Latest Work</h2>
+                    <p class="section-subtitle">Short-form vertical edits created for product visuals, event highlights and personal brand content</p>
+                </div>
+
+                <div class="latest-work-content">
+
+                    <div class="video-showcase-intro">
+                        <h3>Recent Short-Form Video Work</h3>
+                        <p>Muted vertical previews designed for fast browsing. Each clip shows a different style of edit, pacing and visual direction.</p>
+                    </div>
+
+                    <div class="vertical-video-grid">
+
+                        <!-- Video 01 -->
+                        <article class="video-card">
+                            <div class="vertical-video-frame">
+                                <video
+                                    class="showcase-video"
+                                    autoplay
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="metadata"
+                                    aria-label="Short-form product visual showcase video">
+                                    <source src="videos/showcase-1.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-card-copy">
+                                <h3>Product 3D Visual</h3>
+                                <p>3D animation built to elevate product launches, brand campaigns and digital presentations.</p>
+                            </div>
+                        </article>
+
+                        <!-- Video 02 -->
+                        <article class="video-card">
+                            <div class="vertical-video-frame">
+                                <video
+                                    class="showcase-video"
+                                    autoplay
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="metadata"
+                                    aria-label="Short-form event highlight showcase video">
+                                    <source src="videos/showcase-2.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-card-copy">
+                                <h3>Event Highlight Edit</h3>
+                                <p>Fast-paced vertical cuts designed to capture atmosphere, movement and key moments.</p>
+                            </div>
+                        </article>
+
+                        <!-- Video 03 -->
+                        <article class="video-card">
+                            <div class="vertical-video-frame">
+                                <video
+                                    class="showcase-video"
+                                    autoplay
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="metadata"
+                                    aria-label="Short-form personal brand showcase video">
+                                    <source src="videos/showcase-3.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-card-copy">
+                                <h3>Personal Brand Edit</h3>
+                                <p>Portrait-led social content for creators, founders, freelancers and professionals.</p>
+                            </div>
+                        </article>
+
+                        <!-- 
+                        To add more videos later, duplicate this block and update:
+                        - videos/showcase-4.mp4
+                        - title
+                        - description
+
+                        <article class="video-card">
+                            <div class="vertical-video-frame">
+                                <video
+                                    class="showcase-video"
+                                    autoplay
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="metadata"
+                                    aria-label="Short-form showcase video">
+                                    <source src="videos/showcase-4.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-card-copy">
+                                <h3>New Showcase Edit</h3>
+                                <p>Short description of the video style, project type or content goal.</p>
+                            </div>
+                        </article>
+                        -->
+
+                    </div>
+
+                    <div class="trust-strip">
+                        <div class="trust-item">✓ Short-form edits for social platforms</div>
+                        <div class="trust-item">✓ Product, event and personal brand content</div>
+                        <div class="trust-item">✓ Fast turnaround options available</div>
+                    </div>
+
+                    <div class="latest-work-cta">
+                        <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Short%20Form%20Video%20Project&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20a%20short-form%20video%20project.%0A%0AProject%20type:%0APreferred%20date:%0ABudget:%0AMain%20goal:%0A%0AThanks." class="book-button">Book a Video Project</a>
+                    </div>
+
+                </div>
+            </section>
             
             <!-- Portraits Gallery Section -->
-            <section id="portraits" class="gallery-section active">
+            <section id="portraits" class="gallery-section">
                 <div class="section-header">
                     <h2 class="section-title">Portraits</h2>
                     <p class="section-subtitle">"Each frame is an invitation to witness not just a face, but the quiet fire of personality and the fleeting poetry of human emotion"</p>
@@ -277,6 +400,9 @@
                                     <li>One revision</li>
                                     <li>Captions included</li>
                                 </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Single%20Video&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Single%20Video%20package.%0A%0AProject%20details:%0APreferred%20date:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
                             </div>
 
                             <div class="package-card package-card--featured">
@@ -292,6 +418,9 @@
                                     <li>3 revisions</li>
                                     <li>Scheduled delivery</li>
                                 </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Content%20Batch&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Content%20Batch%20package.%0A%0AProject%20details:%0APreferred%20date:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
                             </div>
 
                             <div class="package-card">
@@ -307,6 +436,9 @@
                                     <li>Ongoing collaboration</li>
                                     <li>Priority turnaround</li>
                                 </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Monthly%20Studio&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Monthly%20Studio%20package.%0A%0AProject%20details:%0APreferred%20start%20date:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
                             </div>
 
                         </div>
@@ -331,6 +463,9 @@
                                     <li>White or styled background</li>
                                     <li>Ready for e-commerce & social</li>
                                 </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Product%20Shoot&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Product%20Shoot%20package.%0A%0AProduct:%0APreferred%20date:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
                             </div>
 
                             <div class="package-card">
@@ -344,6 +479,9 @@
                                     <li>15 edited photos</li>
                                     <li>Location flexibility</li>
                                 </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Portrait%20Session&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Portrait%20Session%20package.%0A%0APreferred%20date:%0ALocation:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
                             </div>
 
                             <div class="package-card package-card--wide">
@@ -358,6 +496,75 @@
                                     <li>Vertical videos included</li>
                                     <li>One trailer video of the event</li>
                                 </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Events%20Coverage&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Events%20Coverage%20package.%0A%0AEvent%20type:%0AEvent%20date:%0ALocation:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- C. Client Growth Packages -->
+                    <div class="packages-category">
+                        <div class="packages-category-header">
+                            <span class="packages-category-label">C</span>
+                            <h3 class="packages-category-title">Client Growth Packages</h3>
+                        </div>
+                        <div class="packages-grid">
+
+                            <div class="package-card package-card--featured">
+                                <div class="package-badge">01</div>
+                                <div class="package-popular-tag">Best for small brands</div>
+                                <h4 class="package-name">Social Media Launch Pack</h4>
+                                <div class="package-price">
+                                    <span class="price-amount">From £750</span>
+                                </div>
+                                <ul class="package-includes">
+                                    <li>10 short-form videos for Reels, TikTok & Shorts</li>
+                                    <li>20 edited photos for social media</li>
+                                    <li>3 hook or caption options</li>
+                                    <li>Simple content direction before the shoot</li>
+                                    <li>Ready-to-post vertical delivery</li>
+                                </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Social%20Media%20Launch%20Pack&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Social%20Media%20Launch%20Pack.%0A%0ABrand/business:%0APreferred%20date:%0AMain%20goal:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
+                            </div>
+
+                            <div class="package-card">
+                                <div class="package-badge">02</div>
+                                <h4 class="package-name">Product Launch Kit</h4>
+                                <div class="package-price">
+                                    <span class="price-amount">From £650</span>
+                                </div>
+                                <ul class="package-includes">
+                                    <li>Product photos for website and social use</li>
+                                    <li>Lifestyle product shots</li>
+                                    <li>3 short promo videos</li>
+                                    <li>Simple visual direction for the launch</li>
+                                    <li>Assets ready for e-commerce & social platforms</li>
+                                </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Product%20Launch%20Kit&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Product%20Launch%20Kit.%0A%0AProduct:%0ALaunch%20date:%0AMain%20goal:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
+                            </div>
+
+                            <div class="package-card">
+                                <div class="package-badge">03</div>
+                                <h4 class="package-name">Founder / Personal Brand Session</h4>
+                                <div class="package-price">
+                                    <span class="price-amount">From £500</span>
+                                </div>
+                                <ul class="package-includes">
+                                    <li>Professional portraits</li>
+                                    <li>Behind-the-scenes content</li>
+                                    <li>Short intro video for social media</li>
+                                    <li>Profile-ready images for LinkedIn & Instagram</li>
+                                    <li>Content that presents the person behind the brand</li>
+                                </ul>
+                                <div class="book-now-bar">
+                                    <a href="mailto:tr3sdigitaldale@proton.me?subject=Booking:%20Founder%20Personal%20Brand%20Session&body=Hi%20Tr3sDigitalDale,%0A%0AI%20want%20to%20book%20the%20Founder%20/%20Personal%20Brand%20Session.%0A%0ABrand/business:%0APreferred%20date:%0AMain%20goal:%0A%0AThanks." class="book-button">Book This Package — 50% Deposit to Start</a>
+                                </div>
                             </div>
 
                         </div>
@@ -372,11 +579,11 @@
             </section>
             <!-- ===== END SHORT PACKAGES SECTION ===== -->
 
-            <!-- F2B Services Section -->
+            <!-- Business Services Section -->
             <section id="f2b" class="content-section">
                 <div class="section-header">
-                    <h2 class="section-title">Custom Consultations F2B</h2>
-                    <p class="section-subtitle">Tailored services that align with your budget and necessities</p>
+                    <h2 class="section-title">Business Services</h2>
+                    <p class="section-subtitle">Tailored creative services that align with your budget, goals and brand needs</p>
                 </div>
                 
                 <div class="f2b-content">
@@ -488,10 +695,10 @@
                     
                     <div class="about-text">
                         <h3>Our Story</h3>
-                        <p>A Visual creator based in UK, I shoot, edit, and deliver content that works on TikTok, Instagram, and YouTube Shorts or other platforms. All the work on this site is shot and edited here in Tr3sDigitalDale, no outsourcing, no shortcuts. To take your ideas to the next level.</p>
+                        <p>A visual creator based in the UK, I shoot, edit, and deliver content that works on TikTok, Instagram, YouTube Shorts and other platforms. All the work on this site is shot and edited here in Tr3sDigitalDale — no outsourcing, no shortcuts. To take your ideas to the next level.</p>
                         
                         <h3>Our Approach</h3>
-                        <p>We believe that powerful visuals should be accessible to businesses of all sizes. Our F2B model ensures that whether you're a startup or established enterprise, you receive the same level of creative excellence and attention to detail.</p>
+                        <p>We believe that powerful visuals should be accessible to businesses of all sizes. Our business-focused model ensures that whether you're a startup or an established brand, you receive the same level of creative care, communication and attention to detail.</p>
                         
                         <div class="values-grid">
                             <div class="value-item">
@@ -499,16 +706,16 @@
                                 <p>Uncompromising standards in every project</p>
                             </div>
                             <div class="value-item">
-                                <h4>Innovation</h4>
-                                <p>Staying ahead of industry trends and technologies</p>
+                                <h4>Speed</h4>
+                                <p>Fast delivery for brands that need content moving</p>
                             </div>
                             <div class="value-item">
                                 <h4>Collaboration</h4>
                                 <p>Working as an extension of your team</p>
                             </div>
                             <div class="value-item">
-                                <h4>Sustainability</h4>
-                                <p>Environmentally conscious practices and local partnerships</p>
+                                <h4>Consistency</h4>
+                                <p>Content designed to strengthen your visual presence</p>
                             </div>
                         </div>
                     </div>
@@ -518,8 +725,8 @@
             <!-- Contact Section -->
             <section id="contact" class="content-section">
                 <div class="section-header">
-                    <h2 class="section-title">Get In Touch</h2>
-                    <p class="section-subtitle">Ready to bring your vision to life? Let's start the conversation.</p>
+                    <h2 class="section-title">Let's Work Together</h2>
+                    <p class="section-subtitle">Ready to bring your vision to life? Send the project idea, preferred package and target date.</p>
                 </div>
                 
                 <div class="contact-content">
@@ -542,7 +749,7 @@
                     </div>
                     
                     <div class="contact-note">
-                        <p>We prefer direct communication to better understand your needs and provide personalized solutions. Please don't hesitate to reach out - we're here to help bring your creative vision to life.</p>
+                        <p>Direct communication only — no middlemen, no outsourcing. Send your idea and we will shape the right package around your budget, deadline and content goals.</p>
                     </div>
                 </div>
             </section>
@@ -555,6 +762,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
